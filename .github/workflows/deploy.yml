@@ -29,7 +29,7 @@ jobs:
 
       - name: Validate Terragrunt configuration
         working-directory: ./infra/dev
-        run: terragrunt run-all validate
+        run: terragrunt run -- run-all validate
 
       - name: Run Checkov security scan
         run: checkov -d ./modules --framework terraform
@@ -54,7 +54,7 @@ jobs:
 
       - name: Plan infrastructure
         working-directory: ./infra/dev
-        run: terragrunt run-all plan
+        run: terragrunt run -- run-all plan
 
   apply:
     name: Apply infrastructure with approval
@@ -77,4 +77,4 @@ jobs:
 
       - name: Apply infrastructure
         working-directory: ./infra/dev
-        run: terragrunt run-all apply -auto-approve
+        run: terragrunt run -- run-all apply -auto-approve
