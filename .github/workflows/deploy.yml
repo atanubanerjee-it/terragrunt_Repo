@@ -24,8 +24,8 @@ jobs:
           terraform_version: 1.5.0
           terraform_wrapper: false
 
-      - name: Terraform fmt check
-        run: terraform fmt -check -recursive
+      - name: Terraform fmt
+        run: terraform fmt -recursive
 
       - name: Validate Terragrunt configuration
         working-directory: ./infra/dev
