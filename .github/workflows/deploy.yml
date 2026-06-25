@@ -6,14 +6,17 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   validate:
     name: Terraform validate, lint, and security scan
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
-      ARM_USE_MSI: "true"
-      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_USE_AZURECLI_AUTH: "true"
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
@@ -26,9 +29,8 @@ jobs:
 
       - &azure-login
         name: Azure login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
-          auth-type: IDENTITY
           client-id: ${{ secrets.CLIENTID }}
           tenant-id: ${{ secrets.TENANTID }}
           subscription-id: ${{ secrets.SUBSCRIPTIONID }}
@@ -55,8 +57,7 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
-      ARM_USE_MSI: "true"
-      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_USE_AZURECLI_AUTH: "true"
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
@@ -85,8 +86,7 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
-      ARM_USE_MSI: "true"
-      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_USE_AZURECLI_AUTH: "true"
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
