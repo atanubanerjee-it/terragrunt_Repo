@@ -16,7 +16,8 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
-      ARM_USE_AZURECLI_AUTH: "true"
+      ARM_USE_MSI: "true"
+      ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
@@ -31,6 +32,7 @@ jobs:
         name: Azure login
         uses: azure/login@v2
         with:
+          auth-type: IDENTITY
           client-id: ${{ secrets.CLIENTID }}
           tenant-id: ${{ secrets.TENANTID }}
           subscription-id: ${{ secrets.SUBSCRIPTIONID }}
@@ -57,7 +59,8 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
-      ARM_USE_AZURECLI_AUTH: "true"
+      ARM_USE_MSI: "true"
+      ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
@@ -86,7 +89,8 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
-      ARM_USE_AZURECLI_AUTH: "true"
+      ARM_USE_MSI: "true"
+      ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:

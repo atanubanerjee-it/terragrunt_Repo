@@ -38,6 +38,8 @@ generate "provider" {
 
     provider "azurerm" {
       features {}
+      use_msi  = true
+      client_id = lookup(env, "ARM_MSI_CLIENT_ID", null)
     }
   EOF
 }
