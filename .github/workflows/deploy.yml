@@ -9,7 +9,7 @@ on:
 jobs:
   validate:
     name: Terraform validate, lint, and security scan
-    runs-on: [self-hosted, windows, x64]
+    runs-on: [self-hosted, Windows, X64]
     defaults:
       run:
         shell: pwsh
@@ -44,7 +44,7 @@ jobs:
   plan:
     name: Plan infrastructure
     needs: validate
-    runs-on: [self-hosted, windows, x64]
+    runs-on: [self-hosted, Windows, X64]
     defaults:
       run:
         shell: pwsh
@@ -65,7 +65,7 @@ jobs:
   apply:
     name: Apply infrastructure with approval
     needs: plan
-    runs-on: [self-hosted, windows, x64]
+    runs-on: [self-hosted, Windows, X64]
     environment: dev
     defaults:
       run:
