@@ -35,6 +35,19 @@ To destroy the environment:
 
 1. terragrunt run-all destroy
 
+## GitHub Actions self-hosted runner
+
+This repository includes a workflow at `.github/workflows/deploy.yml` that deploys the environment from a self-hosted runner.
+
+1. In GitHub, go to `Settings` > `Actions` > `Runners` and register a new self-hosted runner for this repository.
+2. Choose `Windows` and follow the registration instructions on the VM.
+3. Install and run the runner service on the VM.
+4. Confirm the runner has labels `self-hosted`, `windows`, and `x64`.
+5. Ensure the VM can authenticate to Azure:
+   - Assign the Azure managed identity used by the Terragrunt provider to this VM, or
+   - update the repository configuration to use Azure service principal credentials instead.
+6. Start the workflow manually from the Actions tab or push to `main`.
+
 ## Notes
 
 - The VM uses a password for simplicity in this demo. For production, prefer SSH keys and secret management.
