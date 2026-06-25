@@ -38,10 +38,10 @@ generate "provider" {
 
     provider "azurerm" {
       features {}
-      subscription_id = "6b699c29-ba9f-426e-9979-c2e636620141"
-      tenant_id       = "e684b531-c77c-48da-aac5-53d36af0d436"
-      use_msi         = true
-      client_id       = "55419bd1-4c4c-434d-8a54-881c981efa20"
+      use_msi = true
+      subscription_id = lookup(env, "ARM_SUBSCRIPTION_ID", null)
+      tenant_id       = lookup(env, "ARM_TENANT_ID", null)
+      client_id       = lookup(env, "ARM_CLIENT_ID", null)
     }
   EOF
 }

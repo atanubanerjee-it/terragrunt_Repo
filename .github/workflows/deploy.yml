@@ -10,6 +10,12 @@ jobs:
   validate:
     name: Terraform validate, lint, and security scan
     runs-on: [self-hosted, Windows, X64]
+    environment: dev
+    env:
+      ARM_USE_MSI: "true"
+      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_TENANT_ID: ${{ secrets.TENANTID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
       run:
         shell: powershell
@@ -17,6 +23,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - &azure-login
+        name: Azure login
+        uses: azure/login@v1
+        with:
+          auth-type: IDENTITY
+          client-id: ${{ secrets.CLIENTID }}
+          tenant-id: ${{ secrets.TENANTID }}
+          subscription-id: ${{ secrets.SUBSCRIPTIONID }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -38,6 +53,12 @@ jobs:
     name: Plan infrastructure
     needs: validate
     runs-on: [self-hosted, Windows, X64]
+    environment: dev
+    env:
+      ARM_USE_MSI: "true"
+      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_TENANT_ID: ${{ secrets.TENANTID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
       run:
         shell: powershell
@@ -45,6 +66,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - *azure-login
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -61,6 +84,11 @@ jobs:
     needs: plan
     runs-on: [self-hosted, Windows, X64]
     environment: dev
+    env:
+      ARM_USE_MSI: "true"
+      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_TENANT_ID: ${{ secrets.TENANTID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
       run:
         shell: powershell
@@ -68,6 +96,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - *azure-login
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
