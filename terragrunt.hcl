@@ -16,6 +16,7 @@ remote_state {
     storage_account_name = "terragruntstategpv2"
     container_name       = "tfstate"
     key                  = "${path_relative_to_include()}/terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
 
