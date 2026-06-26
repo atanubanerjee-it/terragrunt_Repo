@@ -16,6 +16,8 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
+      AZURE_CORE_COLORS: "false"
+      AZURE_CORE_DISABLE_INTERACTIVE: "true"
       ARM_USE_MSI: "true"
       ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
@@ -64,6 +66,8 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
+      AZURE_CORE_COLORS: "false"
+      AZURE_CORE_DISABLE_INTERACTIVE: "true"
       ARM_USE_MSI: "true"
       ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
@@ -94,6 +98,8 @@ jobs:
     runs-on: [self-hosted, Windows, X64]
     environment: dev
     env:
+      AZURE_CORE_COLORS: "false"
+      AZURE_CORE_DISABLE_INTERACTIVE: "true"
       ARM_USE_MSI: "true"
       ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
