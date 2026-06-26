@@ -127,4 +127,4 @@ jobs:
 
       - name: Apply infrastructure
         working-directory: ./infra/dev
-        run: terragrunt run --all -- apply -auto-approve
+        run: terragrunt --non-interactive run --all -- apply -auto-approve
