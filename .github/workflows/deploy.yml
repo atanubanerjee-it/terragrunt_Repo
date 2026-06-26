@@ -19,7 +19,7 @@ jobs:
       AZURE_CORE_COLORS: "false"
       AZURE_CORE_DISABLE_INTERACTIVE: "true"
       ARM_USE_MSI: "true"
-      ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
@@ -74,7 +74,7 @@ jobs:
       AZURE_CORE_COLORS: "false"
       AZURE_CORE_DISABLE_INTERACTIVE: "true"
       ARM_USE_MSI: "true"
-      ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
@@ -106,7 +106,7 @@ jobs:
       AZURE_CORE_COLORS: "false"
       AZURE_CORE_DISABLE_INTERACTIVE: "true"
       ARM_USE_MSI: "true"
-      ARM_MSI_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
       ARM_TENANT_ID: ${{ secrets.TENANTID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
     defaults:
