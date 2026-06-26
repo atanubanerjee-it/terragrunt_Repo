@@ -1,5 +1,5 @@
 output "location" {
-  value = azurerm_resource_group.this.location
+  value = azurerm_virtual_network.this.location
 }
 
 output "vnet_id" {
