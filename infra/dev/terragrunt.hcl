@@ -1,3 +1,3 @@
 include "root" {
-  path = infra/dev/terragrunt.hcl
+  path = "../../terragrunt.hcl"
 }
