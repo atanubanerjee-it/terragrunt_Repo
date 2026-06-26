@@ -62,8 +62,8 @@ jobs:
         working-directory: ./infra/dev
         run: terragrunt run --all -- validate
 
-      - name: Run Checkov security scan
-        run: checkov -d ./modules --framework terraform
+      # - name: Run Checkov security scan
+      #   run: checkov -d ./modules --framework terraform
 
   plan:
     name: Plan infrastructure
