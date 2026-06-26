@@ -1,5 +1,5 @@
 include "root" {
-  path = "../../terragrunt.hcl"
+  path = "../terragrunt.hcl"
 }
 
 locals {
