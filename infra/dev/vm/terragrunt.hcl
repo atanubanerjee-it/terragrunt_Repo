@@ -23,7 +23,7 @@ terraform {
 }
 
 inputs = {
-  resource_group_name = dependency.network.outputs.resource_group_name
+  resource_group_name = local.env.vm.resource_group_name
   location            = dependency.network.outputs.location
   subnet_id           = dependency.network.outputs.subnet_id
   vm_name             = local.env.vm.vm_name
