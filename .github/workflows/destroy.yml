@@ -1,0 +1,73 @@
+name: Destroy Azure Terragrunt Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      destroy_type:
+        description: "Destroy mode"
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - selected
+      filter:
+        description: "Terragrunt filter expression for selective destroy (required only when destroy_type is selected)"
+        required: false
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  destroy:
+    name: Destroy infrastructure
+    runs-on: [self-hosted, Windows, X64]
+    environment: dev
+    env:
+      AZURE_CORE_COLORS: "false"
+      AZURE_CORE_DISABLE_INTERACTIVE: "true"
+      ARM_USE_MSI: "true"
+      ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+      ARM_TENANT_ID: ${{ secrets.TENANTID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
+    defaults:
+      run:
+        shell: powershell
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          auth-type: IDENTITY
+          client-id: ${{ secrets.CLIENTID }}
+          tenant-id: ${{ secrets.TENANTID }}
+          subscription-id: ${{ secrets.SUBSCRIPTIONID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.0
+          terraform_wrapper: false
+
+      - name: Destroy infrastructure
+        working-directory: ./infra/dev
+        run: |
+          $destroyType = '${{ github.event.inputs.destroy_type }}'
+          $filter = '${{ github.event.inputs.filter }}'
+
+          if ($destroyType -eq 'selected') {
+            if (-not $filter) {
+              throw 'The workflow input "filter" is required when destroy_type is selected.'
+            }
+            Write-Host "Running selective destroy with filter: $filter"
+            terragrunt --non-interactive run --all --filter "$filter" --filter-allow-destroy destroy -auto-approve
+          }
+          else {
+            Write-Host 'Running destroy for all deployed infrastructure.'
+            terragrunt --non-interactive run --all -- destroy -auto-approve
+          }
