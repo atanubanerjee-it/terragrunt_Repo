@@ -39,10 +39,15 @@ jobs:
           tenant-id: ${{ secrets.TENANTID }}
           subscription-id: ${{ secrets.SUBSCRIPTIONID }}
 
+      - name: Configure Azure CLI non-interactive
+        run: |
+          az config set core.disable_interactive=true --only-show-errors
+          az config set core.color=false --only-show-errors
+
       - name: Debug Azure login
         run: |
-          az account show --query '{name:name, tenantId:tenantId, subscriptionId:id, user:user}' -o json
-          az storage blob list --account-name terragruntstategpv2 --container-name tfstate --auth-mode login --output json | ConvertTo-Json
+          az account show --query '{name:name, tenantId:tenantId, subscriptionId:id, user:user}' -o json --only-show-errors
+          az storage blob list --account-name terragruntstategpv2 --container-name tfstate --auth-mode login --output json --only-show-errors | ConvertTo-Json
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
